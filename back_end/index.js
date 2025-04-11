@@ -6,6 +6,7 @@ const client = require("./db/client");
 const { createTables } = require("./db/seed");
 const { seedUsers } = require("./db/seedUsers");
 const { seedMovies } = require("./db/seedMovies");
+const { seedReviews } = require("./db/seedReviews");
 const PORT = process.env.PORT;
 
 // Middleware
@@ -23,12 +24,16 @@ const init = async () => {
     console.log("Tables created");
 
     console.log("🌱 Seeding users...");
-    await seedUsers();
+    const users = await seedUsers();
     console.log("Users Seeded");
 
     console.log("🌱 Seeding movies...");
-    await seedMovies();
+    const movies = await seedMovies();
     console.log("Movies Seeded");
+
+    console.log("🌱 Seeding reviews...");
+    await seedReviews(users, movies);
+    console.log("Reviews Seeded");
   } catch (error) {
     console.error("Database connection error:", error);
   }
