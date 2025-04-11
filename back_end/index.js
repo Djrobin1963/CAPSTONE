@@ -1,14 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const morgan = require("morgan");
 const client = require("./db/client");
+const PORT = process.env.PORT;
+const morgan = require("morgan");
 const { createTables } = require("./db/seed");
 const { seedUsers } = require("./db/seedUsers");
 const { seedMovies } = require("./db/seedMovies");
 const { seedReviews } = require("./db/seedReviews");
 const { seedComments } = require("./db/seedComments");
-const PORT = process.env.PORT;
 
 // Middleware
 app.use(express.json());
