@@ -4,21 +4,25 @@ const app = express();
 const client = require("./db/client");
 const PORT = process.env.PORT;
 const morgan = require("morgan");
+const authRoutes = require("./api/auth");
 const { createTables } = require("./db/seed");
 const { seedUsers } = require("./db/seedUsers");
 const { seedMovies } = require("./db/seedMovies");
 const { seedReviews } = require("./db/seedReviews");
 const { seedComments } = require("./db/seedComments");
+const { requireUser } = require("./auth/middleware");
 
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
 
+// Route Mounting
+app.use("/api/auth", authRoutes);
+
 const init = async () => {
   try {
-    console.log("Connected to the database");
-    await client.connect();
     console.log("Connected to database");
+    await client.connect();
 
     console.log("🧹 Creating tables...");
     await createTables();
@@ -39,6 +43,7 @@ const init = async () => {
     console.log("🌱 Seeding comments...");
     const comments = await seedComments(users, reviews);
     console.log("Comments Seeded");
+
     console.log("Seeding Complete!");
   } catch (error) {
     console.error("Database connection error:", error);

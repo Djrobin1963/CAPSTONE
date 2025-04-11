@@ -15,6 +15,7 @@ async function seedMovies(count = 100) {
       .getFullYear();
 
     await client.query(
+      /*SQL*/
       `
       INSERT INTO movies (id, title, description, poster_url, release_year)
       VALUES ($1, $2, $3, $4, $5)

@@ -13,6 +13,7 @@ async function seedUsers(count = 50) {
     const password = await bcrypt.hash("password123", 10);
 
     await client.query(
+      /*SQL*/
       `
       INSERT INTO users (id, username, email, password)
       VALUES ($1, $2, $3, $4)

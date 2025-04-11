@@ -10,6 +10,7 @@ async function seedComments(users, reviews, count = 1000) {
     const text = faker.lorem.sentences({ min: 1, max: 2 });
 
     await client.query(
+      /*SQL*/
       `
       INSERT INTO comments (id, user_id, review_id, text)
       VALUES ($1, $2, $3, $4)
