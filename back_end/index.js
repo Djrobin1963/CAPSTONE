@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const client = require("./db/client");
 const PORT = process.env.PORT;
@@ -19,6 +20,7 @@ const { requireUser } = require("./auth/middleware");
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors());
 
 // Route Mounting
 app.use("/api/auth", authRoutes);
