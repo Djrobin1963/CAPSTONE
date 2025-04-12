@@ -21,8 +21,8 @@ export default function Home() {
 
   return (
     <div className="home">
-      <h1>🎬 All Movies</h1>
-      <div className="movie_grid">
+      <h1>🎬 All Movies </h1>
+      <div className="movie-grid">
         {movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
