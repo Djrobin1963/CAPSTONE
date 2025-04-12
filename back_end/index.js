@@ -5,6 +5,10 @@ const client = require("./db/client");
 const PORT = process.env.PORT;
 const morgan = require("morgan");
 const authRoutes = require("./api/auth");
+const movieRoutes = require("./api/movies");
+const reviewRoutes = require("./api/reviews");
+const commentRoutes = require("./api/comments");
+const usersRoutes = require("./api/users");
 const { createTables } = require("./db/seed");
 const { seedUsers } = require("./db/seedUsers");
 const { seedMovies } = require("./db/seedMovies");
@@ -18,6 +22,10 @@ app.use(morgan("dev"));
 
 // Route Mounting
 app.use("/api/auth", authRoutes);
+app.use("/api/movies", movieRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/users", usersRoutes);
 
 const init = async () => {
   try {
