@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { apiFetch } from "../api/client";
 import "./MovieDetails.css";
+import CommentBox from "../components/comments";
 
 export default function MovieDetails() {
   const { id } = useParams();
@@ -130,6 +131,10 @@ export default function MovieDetails() {
                 <strong>{review.username}</strong> rated it {review.rating}/10
               </p>
               <p>{review.text}</p>
+              <CommentBox
+                reviewId={review.id}
+                initialComments={review.comments}
+              />
             </div>
           ))
         ) : (
