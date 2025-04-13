@@ -5,8 +5,8 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import MovieDetails from "./pages/moviedetails";
-// import WriteReview from './pages/WriteReview';
-// import MyAccount from './pages/MyAccount';
+
+import MyAccount from "./pages/account";
 
 function App() {
   return (
@@ -18,8 +18,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/movies/:id" element={<MovieDetails />} />
-          {/* <Route path="/review/:id" element={<WriteReview />} />
-          <Route path="/account" element={<MyAccount />} /> */}
+          {/* <Route path="/review/:id" element={<WriteReview />} /> */}
+          <Route path="/account" element={<MyAccount />} />
         </Routes>
       </main>
       <Footer />
