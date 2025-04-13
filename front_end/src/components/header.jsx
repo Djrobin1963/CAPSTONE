@@ -9,34 +9,41 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        {/* LEFT: Logo only */}
+        {/* Logo on the left */}
         <Link to="/" className="logo">
           🎬 Movie Reviews
         </Link>
 
-        {/* RIGHT: Welcome + Nav */}
-        <div className="header-right">
+        {/* Right side: welcome + nav */}
+        <nav className="nav">
           {user && (
-            <span className="welcome-msg">Welcome, {user.username}</span>
+            <span className="nav-item welcome-msg">
+              Welcome, {user.username}
+            </span>
           )}
-
-          <nav className="nav-links">
-            <Link to="/">Home</Link>
-            {user ? (
-              <>
-                <Link to="/account">My Account</Link>
-                <button onClick={logout} className="logout-btn">
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
-              </>
-            )}
-          </nav>
-        </div>
+          <Link to="/" className="nav-item">
+            Home
+          </Link>
+          {user ? (
+            <>
+              <Link to="/account" className="nav-item">
+                My Account
+              </Link>
+              <button onClick={logout} className="nav-item logout-btn">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="nav-item">
+                Login
+              </Link>
+              <Link to="/register" className="nav-item">
+                Register
+              </Link>
+            </>
+          )}
+        </nav>
       </div>
     </header>
   );
