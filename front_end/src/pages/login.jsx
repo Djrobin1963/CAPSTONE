@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { apiFetch } from "../api/client";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authcontext";
 import "./Authform.css";
 
 export default function Login() {
@@ -8,6 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // <-- use the login function
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -16,9 +18,8 @@ export default function Login() {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      navigate("/account");
+      login(user, token); // <-- call the login function
+      navigate("/");
     } catch (err) {
       setError("Invalid email or password");
     }

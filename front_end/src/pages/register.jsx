@@ -19,7 +19,7 @@ export default function Register() {
       });
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/account");
+      navigate("/login");
     } catch (err) {
       setError("Failed to register. Email might be in use.");
     }

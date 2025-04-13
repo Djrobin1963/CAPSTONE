@@ -16,6 +16,7 @@
   align-items: center;
 }
 
+/* Logo (left side) */
 .logo {
   font-weight: bold;
   font-size: 1.5rem;
@@ -23,12 +24,41 @@
   color: #fff;
 }
 
-.nav-links a {
-  margin-left: 1rem;
-  text-decoration: none;
-  color: #fff;
+/* Right section: Welcome + Nav */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.nav-links a:hover {
+/* Welcome message */
+.welcome-msg {
+  color: #ccc;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* Nav links (after welcome) */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links a,
+.logout-btn {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.nav-links a:hover,
+.logout-btn:hover {
   text-decoration: underline;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
