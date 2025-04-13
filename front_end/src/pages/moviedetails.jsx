@@ -173,6 +173,7 @@ export default function MovieDetails() {
               <p>{userReview.text}</p>
               <div className="review-actions">
                 <button
+                  className="review-action-btn"
                   onClick={() => {
                     setIsEditing(true);
                     setRating(userReview.rating);
@@ -181,7 +182,12 @@ export default function MovieDetails() {
                 >
                   Edit
                 </button>
-                <button onClick={handleReviewDelete}>Delete</button>
+                <button
+                  className="review-action-btn"
+                  onClick={handleReviewDelete}
+                >
+                  Delete
+                </button>
               </div>
             </>
           )}
