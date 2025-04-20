@@ -1,29 +1,53 @@
-const { faker } = require("@faker-js/faker");
-const { v4: uuidv4 } = require("uuid");
 const client = require("./client");
+require("dotenv").config();
 
-async function seedMovies(count = 100) {
+const TMDB_KEY = process.env.TMDB_API_KEY;
+const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
+
+async function fetchPopularMovies(page = 1) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=en-US&page=${page}`
+  );
+  const data = await res.json();
+  return data.results;
+}
+
+async function seedMovies(pages = 1) {
   const movies = [];
 
-  for (let i = 0; i < count; i++) {
-    const id = uuidv4();
-    const title = faker.lorem.words({ min: 1, max: 4 });
-    const description = faker.lorem.paragraph();
-    const poster_url = faker.image.urlPicsumPhotos({ width: 200, height: 300 });
-    const release_year = faker.date
-      .between({ from: "1980-01-01", to: "2024-01-01" })
-      .getFullYear();
+  for (let p = 1; p <= pages; p++) {
+    const results = await fetchPopularMovies(p);
 
-    await client.query(
-      /*SQL*/
-      `
-      INSERT INTO movies (id, title, description, poster_url, release_year)
-      VALUES ($1, $2, $3, $4, $5)
-    `,
-      [id, title, description, poster_url, release_year]
-    );
+    for (const movie of results) {
+      if (
+        !movie.id ||
+        !movie.title ||
+        !movie.release_date ||
+        !movie.poster_path
+      )
+        continue;
 
-    movies.push({ id, title });
+      const poster_url = `${IMAGE_BASE}${movie.poster_path}`;
+      const release_year = new Date(movie.release_date).getFullYear();
+
+      await client.query(
+        `INSERT INTO movies (id, title, description, poster_url, release_year, vote_average, popularity, original_language)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+         ON CONFLICT DO NOTHING`,
+        [
+          movie.id,
+          movie.title,
+          movie.overview || "No description.",
+          poster_url,
+          release_year,
+          movie.vote_average,
+          movie.popularity,
+          movie.original_language || "en",
+        ]
+      );
+
+      movies.push({ id: movie.id, title: movie.title });
+    }
   }
 
   return movies;
