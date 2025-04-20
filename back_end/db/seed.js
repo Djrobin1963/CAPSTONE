@@ -1,3 +1,4 @@
+require("dotenv").config();
 const client = require("./client");
 
 const createTables = async () => {
