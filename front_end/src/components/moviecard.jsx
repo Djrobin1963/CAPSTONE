@@ -1,15 +1,27 @@
 import { Link } from "react-router-dom";
 import "./moviecard.css";
 
-export default function movieCard({ movie }) {
+export default function MovieCard({ movie }) {
+  // Support both TMDB and local DB formats
+  const posterUrl =
+    movie.poster_url ||
+    (movie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+      : "https://via.placeholder.com/200x300?text=No+Image");
+
+  const title = movie.title || "Untitled";
+  const releaseYear =
+    movie.release_year || (movie.release_date?.slice(0, 4) ?? "N/A");
+  const rating = movie.avg_rating ?? movie.vote_average ?? "No ratings yet";
+
   return (
     <div className="moviecard">
       <Link to={`/movies/${movie.id}`}>
-        <img src={movie.poster_url} alt={movie.title} className="poster" />
+        <img src={posterUrl} alt={title} className="poster" />
         <h3>
-          {movie.title} ({movie.release_year})
+          {title} ({releaseYear})
         </h3>
-        <p>{movie.avg_rating ?? "No ratings yet"}</p>
+        <p>⭐ {typeof rating === "number" ? rating.toFixed(1) : rating}</p>
       </Link>
     </div>
   );

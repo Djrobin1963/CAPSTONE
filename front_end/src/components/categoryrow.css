@@ -1,0 +1,26 @@
+.category-row {
+  margin-bottom: 2rem;
+}
+
+.category-title {
+  margin-left: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 1rem;
+  gap: 1rem;
+  scroll-behavior: smooth;
+}
+
+.scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
