@@ -40,19 +40,23 @@ const init = async () => {
 
     console.log("🌱 Seeding users...");
     const users = await seedUsers();
+    console.log("Users Seeded");
 
     console.log("🌱 Seeding movies...");
-    const movies = await seedMovies(2); // 2 TMDB pages (~40 movies)
+    const movies = await seedMovies();
+    console.log("Movies Seeded");
 
     console.log("🌱 Seeding reviews...");
     const reviews = await seedReviews(users, movies);
+    console.log("Reviews Seeded");
 
     console.log("🌱 Seeding comments...");
-    await seedComments(users, reviews);
+    const comments = await seedComments(users, reviews);
+    console.log("Comments Seeded");
 
     console.log("Seeding Complete!");
   } catch (error) {
-    console.error("❌ Seeding failed:", error);
+    console.error("Database connection error:", error);
   }
 };
 

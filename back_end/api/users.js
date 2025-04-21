@@ -7,7 +7,6 @@ const { requireUser } = require("../auth/middleware");
 router.get("/me", requireUser, async (req, res, next) => {
   try {
     const { rows } = await client.query(
-      /*SQL*/
       `
       SELECT id, username, email FROM users WHERE id = $1
     `,
@@ -24,7 +23,6 @@ router.get("/me", requireUser, async (req, res, next) => {
 router.get("/me/reviews", requireUser, async (req, res, next) => {
   try {
     const { rows } = await client.query(
-      /*SQL*/
       `
       SELECT * FROM reviews WHERE user_id = $1
     `,
