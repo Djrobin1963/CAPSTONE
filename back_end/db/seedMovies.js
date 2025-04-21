@@ -31,6 +31,7 @@ async function seedMovies(pages = 1) {
       const release_year = new Date(movie.release_date).getFullYear();
 
       await client.query(
+        /*SQL*/
         `INSERT INTO movies (id, title, description, poster_url, release_year, vote_average, popularity, original_language)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
          ON CONFLICT DO NOTHING`,

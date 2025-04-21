@@ -18,7 +18,7 @@ const createTables = async () => {
       id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
       username TEXT UNIQUE NOT NULL,
       email TEXT UNIQUE NOT NULL,
-      password TEXT NOT NULL
+      password TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT NOW ()
     );
 
@@ -30,13 +30,13 @@ const createTables = async () => {
       release_year INT,
       vote_average NUMERIC,  
       popularity NUMERIC,
-      original_language TEXT,              -- TMDB vote average (1 decimal place)
+      original_language TEXT              -- TMDB vote average (1 decimal place)
     );
 
     CREATE TABLE reviews (
       id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
       user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-      movie_id UUID REFERENCES movies(id) ON DELETE CASCADE,
+      movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE,
       rating INTEGER CHECK (rating BETWEEN 1 AND 10),
       text TEXT,
       created_at TIMESTAMP DEFAULT NOW(),
