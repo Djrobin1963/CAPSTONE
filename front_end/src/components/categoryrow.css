@@ -1,0 +1,57 @@
+.category-row {
+  margin-bottom: 2rem;
+}
+
+.category-title {
+  margin-left: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Fixed container width, scrolls inside only */
+.scroll-container {
+  display: flex;
+  overflow-x: hidden;
+  gap: 1rem;
+  padding: 1rem;
+  scroll-behavior: auto;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* 🧠 Auto-scroll when hovering near edge */
+.scroll-container::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5%;
+  height: 100%;
+  pointer-events: auto;
+}
+
+.scroll-container:hover {
+  animation: scroll-right 5s linear infinite;
+}
+
+/* 🌀 Smooth auto-scroll animation */
+@keyframes scroll-right {
+  0% {
+    scroll-behavior: smooth;
+  }
+  100% {
+    scroll-behavior: smooth;
+    transform: translateX(-10%);
+  }
+}

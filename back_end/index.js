@@ -16,6 +16,7 @@ const { seedMovies } = require("./db/seedMovies");
 const { seedReviews } = require("./db/seedReviews");
 const { seedComments } = require("./db/seedComments");
 const { requireUser } = require("./auth/middleware");
+const tmdbRoutes = require("./api/controllers/tmdb").router;
 
 // Middleware
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use("/api/movies", movieRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/tmdb", tmdbRoutes);
 
 const init = async () => {
   try {
