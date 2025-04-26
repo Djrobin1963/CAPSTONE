@@ -8,18 +8,18 @@ export default function CategoryPage() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    const fetchCategory = async () => {
+    async function fetchCategory() {
       try {
-        const response = await apiFetch(`tmdb/${category}`);
-        setMovies(response);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
+        const data = await apiFetch(`/tmdb/${category}`);
+        console.log("Category data:", data);
+        setMovies(data);
+      } catch (err) {
+        console.error("Failed to load category:", err.message);
       }
-    };
+    }
 
     fetchCategory();
   }, [category]);
-
   return (
     <div className="category-page">
       <h1 style={{ textAlign: "center" }}>
