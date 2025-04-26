@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiFetch } from "../api/client";
 import MovieCard from "./moviecard";
+import "./categorypage.css";
 
 export default function CategoryPage() {
   const { category } = useParams();
