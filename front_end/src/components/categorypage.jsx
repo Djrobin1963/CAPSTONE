@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiFetch } from "../utils/apiFetch";
-import Moviecard from ".moviecard";
+import { apiFetch } from "../api/client";
+import MovieCard from "./moviecard";
 
 export default function CategoryPage() {
   const { category } = useParams();
@@ -11,13 +11,13 @@ export default function CategoryPage() {
     const fetchCategory = async () => {
       try {
         const response = await apiFetch(`tmdb/${category}`);
-        setMovies(data);
+        setMovies(response);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
     };
 
-    fetchMovies();
+    fetchCategory();
   }, [category]);
 
   return (

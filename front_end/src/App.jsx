@@ -5,6 +5,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import MovieDetails from "./pages/moviedetails";
+import CategoryPage from "./components/categorypage";
 
 import MyAccount from "./pages/account";
 
