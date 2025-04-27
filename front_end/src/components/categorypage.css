@@ -1,15 +1,13 @@
 .category-page {
   padding: 2rem;
+  max-width: 1400px; /* keep movie rows from stretching too wide */
+  margin: 0 auto; /* center the entire page content */
 }
 
+/* Grid layout for movie cards */
 .category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-/* Center the movie cards  */
-.category-grid > * {
-  justify-self: center;
 }
