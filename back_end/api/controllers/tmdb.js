@@ -10,8 +10,9 @@ const BASE_URL = "https://api.themoviedb.org/3";
 // Helper to call TMDB with category
 const fetchTMDB = (endpoint) => async (req, res) => {
   try {
-    const totalPages = 20; // 👈 how many pages you want to pull (5 pages = 100 movies)
+    const totalPages = 5; // or however many you want
     let allMovies = [];
+    const seenIds = new Set(); // track movie IDs we've already seen
 
     for (let page = 1; page <= totalPages; page++) {
       const response = await fetch(
@@ -26,11 +27,16 @@ const fetchTMDB = (endpoint) => async (req, res) => {
 
       const data = await response.json();
       if (data.results) {
-        allMovies = allMovies.concat(data.results); // ⬅️ combine results
+        for (const movie of data.results) {
+          if (!seenIds.has(movie.id)) {
+            allMovies.push(movie);
+            seenIds.add(movie.id); // mark this ID as seen
+          }
+        }
       }
     }
 
-    res.json(allMovies); // ✅ send combined full list
+    res.json(allMovies);
   } catch (err) {
     console.error(`❌ TMDB fetch failed [${endpoint}]:`, err.message);
     res.status(500).json({ error: "Internal server error" });
