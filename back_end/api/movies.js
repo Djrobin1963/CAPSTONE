@@ -33,6 +33,7 @@ router.get("/:id", async (req, res, next) => {
 
     // Try to find movie in local database
     const { rows: movieRows } = await client.query(
+      /*SQL*/
       `
       SELECT * FROM movies WHERE id = $1
     `,
@@ -40,6 +41,7 @@ router.get("/:id", async (req, res, next) => {
     );
 
     const { rows: reviews } = await client.query(
+      /*SQL*/
       `
       SELECT r.*, u.username FROM reviews r
       JOIN users u ON r.user_id = u.id
@@ -49,13 +51,12 @@ router.get("/:id", async (req, res, next) => {
     );
 
     if (movieRows.length > 0) {
-      // 🎬 Movie found locally
       res.json({
         ...movieRows[0],
         reviews,
       });
     } else {
-      // 🛬 Fallback: Fetch movie from TMDB API
+      // Fallback: Fetch movie from TMDB API
       const response = await fetch(
         `${BASE_URL}/movie/${id}?api_key=${TMDB_API_KEY}&language=en-US`
       );
