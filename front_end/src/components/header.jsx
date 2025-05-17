@@ -9,12 +9,10 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        {/* Logo on the left */}
         <Link to="/" className="logo">
           🎬 Movie Reviews
         </Link>
 
-        {/* Right side: welcome + nav */}
         <nav className="nav">
           {user && (
             <span className="nav-item welcome-msg">
@@ -26,7 +24,6 @@ export default function Header() {
             Home
           </Link>
 
-          {/* TMDB Movies Dropdown */}
           <div className="dropdown">
             <Link className="nav-item dropbtn">Movies </Link>
             <div className="dropdown-content">

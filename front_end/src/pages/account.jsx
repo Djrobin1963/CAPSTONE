@@ -48,7 +48,6 @@ export default function MyAccount() {
                 <strong>Rating:</strong> {review.rating}/10
               </p>
               <p>{review.text}</p>
-              {/* Buttons for edit/delete will go here */}
             </div>
           ))
         ) : (

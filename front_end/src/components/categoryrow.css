@@ -8,7 +8,6 @@
   font-weight: 600;
 }
 
-/* Fixed container width, scrolls inside only */
 .scroll-container {
   display: flex;
   overflow-x: hidden;
@@ -22,7 +21,7 @@
 }
 
 .scroll-container::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+  display: none;
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
@@ -30,7 +29,6 @@
   border-radius: 4px;
 }
 
-/* 🧠 Auto-scroll when hovering near edge */
 .scroll-container::after {
   content: "";
   position: absolute;
@@ -45,7 +43,6 @@
   animation: scroll-right 5s linear infinite;
 }
 
-/* 🌀 Smooth auto-scroll animation */
 @keyframes scroll-right {
   0% {
     scroll-behavior: smooth;

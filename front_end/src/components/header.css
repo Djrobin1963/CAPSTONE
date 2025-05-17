@@ -16,7 +16,6 @@
   align-items: center;
 }
 
-/* Logo */
 .logo {
   font-weight: bold;
   font-size: 1.5rem;
@@ -24,14 +23,12 @@
   color: #fff;
 }
 
-/* Navigation block */
 .nav {
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
-/* Uniform nav item styling */
 .nav-item {
   color: #fff;
   text-decoration: none;
@@ -46,13 +43,11 @@
   text-decoration: underline;
 }
 
-/* Optional: specific style for welcome message */
 .welcome-msg {
   font-style: italic;
   color: #ccc;
 }
 
-/* Wrapper ensures dropdown stays open while hovering over menu */
 .dropdown {
   position: relative;
 }
@@ -69,7 +64,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 100%; /* ⬅️ aligns dropdown exactly below button */
+  top: 100%;
   left: 0;
   background-color: white;
   min-width: 180px;

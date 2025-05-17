@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const client = require("../db/client");
+require("dotenv").config();
+
+const BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 // GET /api/movies
 router.get("/", async (req, res, next) => {
@@ -27,6 +31,7 @@ router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
 
+    // Try to find movie in local database
     const { rows: movieRows } = await client.query(
       /*SQL*/
       `
@@ -45,12 +50,36 @@ router.get("/:id", async (req, res, next) => {
       [id]
     );
 
-    res.json({
-      ...movieRows[0],
-      reviews,
-    });
+    if (movieRows.length > 0) {
+      res.json({
+        ...movieRows[0],
+        reviews,
+      });
+    } else {
+      // Fallback: Fetch movie from TMDB API
+      const response = await fetch(
+        `${BASE_URL}/movie/${id}?api_key=${TMDB_API_KEY}&language=en-US`
+      );
+      if (!response.ok) throw new Error("Movie not found in TMDB");
+
+      const tmdbMovie = await response.json();
+
+      res.json({
+        id: tmdbMovie.id,
+        title: tmdbMovie.title,
+        description: tmdbMovie.overview,
+        poster_url: tmdbMovie.poster_path
+          ? `https://image.tmdb.org/t/p/w500${tmdbMovie.poster_path}`
+          : null,
+        release_year: tmdbMovie.release_date
+          ? tmdbMovie.release_date.slice(0, 4)
+          : null,
+        reviews: [], // no reviews yet
+      });
+    }
   } catch (err) {
-    next(err);
+    console.error("Movie Details Fetch Error:", err.message);
+    res.status(500).json({ error: err.message });
   }
 });
 

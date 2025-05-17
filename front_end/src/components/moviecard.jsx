@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import "./moviecard.css";
 
 export default function MovieCard({ movie }) {
-  // Support both TMDB and local DB formats
   const posterUrl =
     movie.poster_url ||
     (movie.poster_path

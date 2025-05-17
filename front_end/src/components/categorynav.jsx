@@ -3,10 +3,10 @@ import "./categorynav.css";
 
 export default function CategoryNav() {
   const categories = [
-    { key: "popular", label: "🔥 Popular" },
-    { key: "top_rated", label: "🌟 Top Rated" },
-    { key: "now_playing", label: "🎥 Now Playing" },
-    { key: "upcoming", label: "🚀 Upcoming" },
+    { key: "popular", label: "Popular" },
+    { key: "top_rated", label: "Top Rated" },
+    { key: "now_playing", label: "Now Playing" },
+    { key: "upcoming", label: "Upcoming" },
   ];
 
   return (
