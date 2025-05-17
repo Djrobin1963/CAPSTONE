@@ -10,9 +10,8 @@ export default function CategoryRow({ title, movies }) {
     const container = scrollRef.current;
     if (!container) return;
 
-    container.scrollLeft += 0.5; // adjust scroll speed here
+    container.scrollLeft += 0.5;
 
-    // Loop: reset to beginning when end is reached
     if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
       container.scrollLeft = 0;
     }
@@ -32,7 +31,7 @@ export default function CategoryRow({ title, movies }) {
   };
 
   useEffect(() => {
-    return () => stopScroll(); // cleanup on unmount
+    return () => stopScroll();
   }, []);
 
   return (

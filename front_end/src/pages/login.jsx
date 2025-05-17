@@ -9,7 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // <-- use the login function
+  const { login } = useContext(AuthContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -18,7 +18,7 @@ export default function Login() {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
-      login(user, token); // <-- call the login function
+      login(user, token);
       navigate("/");
     } catch (err) {
       setError("Invalid email or password");

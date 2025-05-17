@@ -7,12 +7,11 @@ const router = express.Router();
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-// Helper to call TMDB with category
 const fetchTMDB = (endpoint) => async (req, res) => {
   try {
-    const totalPages = 5; // or however many you want
+    const totalPages = 5;
     let allMovies = [];
-    const seenIds = new Set(); // track movie IDs we've already seen
+    const seenIds = new Set();
 
     for (let page = 1; page <= totalPages; page++) {
       const response = await fetch(
@@ -21,7 +20,7 @@ const fetchTMDB = (endpoint) => async (req, res) => {
 
       if (!response.ok) {
         const message = await response.text();
-        console.error(`❌ TMDB error [${endpoint} page ${page}]:`, message);
+        console.error(`TMDB error [${endpoint} page ${page}]:`, message);
         return res.status(502).json({ error: "Failed to fetch TMDB data" });
       }
 
@@ -30,7 +29,7 @@ const fetchTMDB = (endpoint) => async (req, res) => {
         for (const movie of data.results) {
           if (!seenIds.has(movie.id)) {
             allMovies.push(movie);
-            seenIds.add(movie.id); // mark this ID as seen
+            seenIds.add(movie.id);
           }
         }
       }
@@ -38,12 +37,11 @@ const fetchTMDB = (endpoint) => async (req, res) => {
 
     res.json(allMovies);
   } catch (err) {
-    console.error(`❌ TMDB fetch failed [${endpoint}]:`, err.message);
+    console.error(`TMDB fetch failed [${endpoint}]:`, err.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-// TMDB Category Routes
 router.get("/popular", fetchTMDB("/movie/popular"));
 router.get("/top_rated", fetchTMDB("/movie/top_rated"));
 router.get("/upcoming", fetchTMDB("/movie/upcoming"));

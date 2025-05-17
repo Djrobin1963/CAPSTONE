@@ -25,11 +25,11 @@
   font-size: 0.9rem;
   margin: 0.5rem 0 0;
   padding: 0 0.5rem;
-  height: auto; /* Allow dynamic height for multiple lines */
-  overflow: hidden; /* Prevent overflow if text is too long */
-  text-overflow: ellipsis; /* Optional: Keep ellipsis for very long text */
-  white-space: normal; /* Allow text to wrap to the next line */
-  line-height: 1.2; /* Adjust line spacing for readability */
+  height: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
 }
 
 .moviecard p {

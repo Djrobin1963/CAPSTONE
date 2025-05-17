@@ -78,7 +78,7 @@ router.get("/:id", async (req, res, next) => {
       });
     }
   } catch (err) {
-    console.error("❌ Movie Details Fetch Error:", err.message);
+    console.error("Movie Details Fetch Error:", err.message);
     res.status(500).json({ error: err.message });
   }
 });
