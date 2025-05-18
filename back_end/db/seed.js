@@ -1,59 +1,31 @@
-const client = require("./client");
+require("dotenv").config();
+const { createTables } = require("./createTables");
+const { seedUsers } = require("./seedUsers");
+const { seedMovies } = require("./seedMovies");
+const { seedReviews } = require("./seedReviews");
+const { seedComments } = require("./seedComments");
 
-const createTables = async () => {
-  await client.query(
-    /*SQL*/
-    `DROP TABLE IF EXISTS comments, reviews, movies, users CASCADE;`
-  );
+async function seedAll() {
+  try {
+    console.log("🧹 Dropping and creating tables...");
+    await createTables();
 
-  await client.query(
-    /*SQL*/
-    `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
-  );
+    console.log("🌱 Seeding users...");
+    const users = await seedUsers();
 
-  await client.query(
-    /*SQL*/
-    `
-    CREATE TABLE users (
-      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-      username TEXT UNIQUE NOT NULL,
-      email TEXT UNIQUE NOT NULL,
-      password TEXT NOT NULL,
-      created_at TIMESTAMP DEFAULT NOW ()
-    );
+    console.log("🌱 Seeding movies...");
+    const movies = await seedMovies(2); // 2 pages of TMDB
 
-    CREATE TABLE movies (
-      id INTEGER PRIMARY KEY,              -- TMDB movie ID (external source),
-      title TEXT NOT NULL,
-      description TEXT,
-      poster_url TEXT,
-      release_year INT,
-      vote_average NUMERIC,  
-      popularity NUMERIC,
-      original_language TEXT              -- TMDB vote average (1 decimal place)
-    );
+    console.log("🌱 Seeding reviews...");
+    const reviews = await seedReviews(users, movies);
 
-    CREATE TABLE reviews (
-      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-      user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-      movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE,
-      rating INTEGER CHECK (rating BETWEEN 1 AND 10),
-      text TEXT,
-      created_at TIMESTAMP DEFAULT NOW(),
-      UNIQUE(user_id, movie_id)
-    );
+    console.log("🌱 Seeding comments...");
+    await seedComments(users, reviews);
 
-    CREATE TABLE comments (
-      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-      user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-      review_id UUID REFERENCES reviews(id) ON DELETE CASCADE,
-      text TEXT NOT NULL,
-      created_at TIMESTAMP DEFAULT NOW()
-    );
-    `
-  );
-};
+    console.log("✅ Seeding complete!");
+  } catch (err) {
+    console.error("❌ Seeding failed:", err);
+  }
+}
 
-module.exports = {
-  createTables,
-};
+module.exports = { seedAll };
