@@ -10,6 +10,7 @@ const movieRoutes = require("./api/movies");
 const reviewRoutes = require("./api/reviews");
 const commentRoutes = require("./api/comments");
 const usersRoutes = require("./api/users");
+const { seedAll } = require("./db/seed");
 const { requireUser } = require("./auth/middleware");
 const tmdbRoutes = require("./api/controllers/tmdb").router;
 
@@ -30,6 +31,7 @@ const init = async () => {
   try {
     await client.connect();
     console.log("Connected to database successfully");
+    await seedAll();
   } catch (error) {
     console.error("❌ Seeding failed:", error);
   }
