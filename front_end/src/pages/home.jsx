@@ -9,7 +9,7 @@ export default function Home() {
   const [topRated, setTopRated] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [nowPlaying, setNowPlaying] = useState([]);
-  const [topMovie, setTopMovie] = useState(null);
+  const [heroMovie, setHeroMovie] = useState(null);
 
   const fetchCategory = async (endpoint, setter) => {
     try {
@@ -22,16 +22,19 @@ export default function Home() {
   };
 
   useEffect(() => {
-    async function loadTopMovie() {
+    async function loadRandomUpcomingMovie() {
       try {
-        const topRated = await apiFetch("/tmdb/top_rated");
-        setTopMovie(topRated[0]);
+        const upcoming = await apiFetch("/tmdb/upcoming");
+        if (upcoming && upcoming.length > 0) {
+          const randomIndex = Math.floor(Math.random() * upcoming.length);
+          setHeroMovie(upcoming[randomIndex]);
+        }
       } catch (err) {
-        console.error("Failed to load top movie:", err.message);
+        console.error("Failed to load random upcoming movie:", err.message);
       }
     }
 
-    loadTopMovie();
+    loadRandomUpcomingMovie();
   }, []);
 
   useEffect(() => {
@@ -43,7 +46,7 @@ export default function Home() {
 
   return (
     <div className="home">
-      <HeroBanner movie={topMovie} />
+      <HeroBanner movie={heroMovie} />
 
       <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>
         🎬 Discover Movies

@@ -25,7 +25,7 @@ export default function MyAccount() {
 
   return (
     <div className="account-page">
-      <h2>My Account</h2>
+      <h2>Account</h2>
 
       <div className="account-info">
         <p>
